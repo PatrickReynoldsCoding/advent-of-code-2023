@@ -1,3 +1,5 @@
+import {stringToStringArray} from "../utils/helperMethods";
+
 const fs = require('fs');
 import {Game, Games} from "./models/Game";
 
@@ -40,13 +42,42 @@ describe('Day two tests', () => {
 
     it('the game class can return the highest coloured dice', () => {
 
-        const game1 = new Game("Game 1: 6 green, 3 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+        const game1 = new Game("Game 1: 6 green, 3 blue; 30 red, 1 green; 4 green, 3 red, 5 blue")
         const game2 = new Game("Game 1: 6 green, 3 blue; 3 red, 14 green; 4 green, 3 red, 5 blue")
         const game3 = new Game("Game 1: 6 green, 20 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
 
-        expect(game1.getHighestFromString("red")).toBe(3);
+        expect(game1.getHighestFromString("red")).toBe(30);
         expect(game2.getHighestFromString("green")).toBe(14);
         expect(game3.getHighestFromString("blue")).toBe(20);
+    });
+
+    it('the game class returns 0 if the value is not as high as the elfs critiria', () => {
+
+        // The Elf would first like to know which games would have been possible if the
+        // bag contained only 12 red cubes, 13 green cubes, and 14 blue cubes?
+
+        const game1 = new Game("Game 1: 6 green, 3 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+        const game2 = new Game("Game 1: 6 green, 3 blue; 3 red, 14 green; 4 green, 3 red, 5 blue")
+        const game3 = new Game("Game 1: 6 green, 20 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+        const game4 = new Game("Game 1: 6 green, 3 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+        const game5 = new Game("Game 1: 6 green, 3 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+
+        expect(game1.getHighestFromString("red")).toBe(0);
+        expect(game2.getHighestFromString("green")).toBe(14);
+        expect(game3.getHighestFromString("blue")).toBe(20);
+        expect(game4.getHighestFromString("green")).toBe(0);
+        expect(game5.getHighestFromString("blue")).toBe(0);
+    });
+
+    it('Solves the code!', () => {
+
+        const codeArray: string[] = stringToStringArray(input)
+
+        const gamesArray: Game[] = codeArray.map(code => new Game(code))
+
+        const games: Games = new Games(gamesArray)
+
+        console.log(games.sumGameIds())
     });
 
 });
