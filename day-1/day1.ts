@@ -1,21 +1,10 @@
-const stringToStringArray = (codes: string) => {
-    return codes.split("\n")
-}
+import {stringToStringArray, sumArray} from "../utils/helperMethods";
 
 const getCorrectInput = (code: string): string => {
     return code[0] + code.slice(-1)
 }
 
-const sumArray = (numbers: number[]): number => {
-    if (numbers.length === 0) {
-        return 0
-    }
-    if (numbers.length === 1) {
-        return numbers[0]
-    } else {
-        return numbers.reduce((total, num) => total + num, 0);
-    }
-}
+
 const getLastElement = (arr: any[]): any => {
     if (arr.length === 1) {
         return arr[0];

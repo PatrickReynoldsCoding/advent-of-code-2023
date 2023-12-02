@@ -1,4 +1,5 @@
 import { Dice } from './Dice';
+import {sumArray} from "../../utils/helperMethods";
 
 
 export class Games {
@@ -8,7 +9,7 @@ export class Games {
     }
 
     sumGameIds() {
-
+        return sumArray(this.gamesArray.map(game => game.id))
     }
 
 
