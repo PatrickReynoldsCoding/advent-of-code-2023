@@ -10,12 +10,17 @@ export class Games {
         this.gamesArray = gamesArray
     }
 
-    sumGameIds() {
+    sumPlayableGames(part2: boolean = false) {
         return sumArray(this.gamesArray.map(game => {
-            if (game.isGamePlayable) {
-                return game.id
+            if (part2 == true) {
+                return game.powerOfMinNeeded
+
             } else {
-                return 0
+                if (game.isGamePlayable) {
+                    return game.id
+                } else {
+                    return 0
+                }
             }
         }))
 
@@ -27,11 +32,20 @@ export class Games {
 export class Game {
     gameString: string;
     id: number;
-    isGamePlayable: Boolean
+    isGamePlayable: boolean
+    red: number;
+    green: number;
+    blue: number;
+    powerOfMinNeeded: number
+
     constructor(gameString: string) {
         this.gameString = gameString;
         this.id = this.getId();
         this.isGamePlayable = this.checkIfGameIsPlayable();
+        this.red = this.getHighestFromString("red")
+        this.green = this.getHighestFromString("green")
+        this.blue = this.getHighestFromString("blue")
+        this.powerOfMinNeeded = this.red * this.green * this.blue
     }
 
     getId(): number {
@@ -40,19 +54,24 @@ export class Game {
     }
 
     checkIfGameIsPlayable(): boolean {
-      const isPlayableCheck: number[] =  ["red", "green", "blue"].map(colour => this.getHighestFromString(colour))
+        const isPlayableCheck: number[] = ["red", "green", "blue"].map(colour => this.returnIfPlayable(colour, this.getHighestFromString(colour)))
         const isPlayable = !isPlayableCheck.includes(0)
         return isPlayable
     }
 
-    getHighestFromString(colour: string) {
+    getHighestFromString(colour: string, part2: boolean = false) {
         const regex = new RegExp(`(\\d+)\\s${colour}`, "g") // matches: digit, space + colour. /g means global (searches the whole string)
         const colourValuesAsString: RegExpMatchArray = this.gameString.match(regex) // something like ["3 red", "3 red"]
 
         const colourValues: number[] = colourValuesAsString.map(value => Number(value.match(regExFindAllDigits)))
 
-        const highest: number = Math.max(...colourValues)
+        return Math.max(...colourValues)
 
+
+
+    }
+
+    returnIfPlayable(colour: string, highest: number) {
         switch (colour) {
             case "red":
                 return highest <= 12 ? highest : 0
@@ -65,5 +84,6 @@ export class Game {
 
         }
     }
+
 
 }
