@@ -1,10 +1,4 @@
-const fs = require('fs');
-
-
-const input: string = fs.readFileSync('day-1/input.txt', 'utf8');
-
-
-const stringToStringArray = (codes: String): string[] => {
+const stringToStringArray = (codes: string) => {
     return codes.split("\n")
 }
 
@@ -75,7 +69,7 @@ const codeBreaker = (code: string) => {
 
                 case "object":
                     if (num === null) {
-                        console.log(`${codeSeg} did not contain a number.`);
+
                     }
                     break;
 
@@ -100,7 +94,7 @@ const codeBreaker = (code: string) => {
 }
 
 
-const getCalibrationValue = (code: string): string => {
+export const getCalibrationValue = (code: string): string => {
 
     const array: string[] = stringToStringArray(code)
 
@@ -121,5 +115,3 @@ const getCalibrationValue = (code: string): string => {
 
 }
 
-
-console.log(getCalibrationValue(input));
