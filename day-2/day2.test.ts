@@ -8,10 +8,6 @@ describe('Day two tests', () => {
        let input = fs.readFileSync('day-2/input.txt', 'utf8');
 
 
-    //t1 push game ids to array and add
-
-//t2 when given the values, the method can create a dice with the highest numbers
-
 
 
 
@@ -42,16 +38,15 @@ describe('Day two tests', () => {
         expect(games.sumGameIds()).toBe(53);
     });
 
-    // it('getCalibrationValue function should return correct results', () => {
-    //
-    //     const game1 = new Game("Game 1", 1,2, 3)
-    //
-    //     console.log(game1.redDie.value)
-    //     console.log(game1.id)
-    //
-    //
-    //
-    //     // expect(getCalibrationValue(input)).toBe(`Part 1: 54634, Part 2: 53855`);
-    // });
+    it('the game class can return the highest coloured dice', () => {
+
+        const game1 = new Game("Game 1: 6 green, 3 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+        const game2 = new Game("Game 1: 6 green, 3 blue; 3 red, 14 green; 4 green, 3 red, 5 blue")
+        const game3 = new Game("Game 1: 6 green, 20 blue; 3 red, 1 green; 4 green, 3 red, 5 blue")
+
+        expect(game1.getHighestFromString("red")).toBe(3);
+        expect(game2.getHighestFromString("green")).toBe(14);
+        expect(game3.getHighestFromString("blue")).toBe(20);
+    });
 
 });
