@@ -123,3 +123,50 @@ describe('Day two tests', () => {
     });
 
 });
+
+    describe('Reddit solutions', () => {
+
+
+        it('solution by 4HbQ, converted from python ', () => {
+
+
+            // original py
+            // def f(line):
+            // bag = {'r':0, 'g':0, 'b':0}
+            // for num, col in re.findall(r'(\d+) (\w)', line):
+            // bag[col] = max(bag[col], int(num))
+            // return math.prod(bag.values())
+
+
+
+            function calculateProduct(line: string): number {
+                const bag: Record<string, number> = { r: 0, g: 0, b: 0 };
+
+
+                // matches one or more digits (\d+), followed by a space, followed by a word character (\w).
+                // g is global search and will find all matches rather than stop after first match.
+                // The parentheses () are used to capture the matched groups for later use. (num) (colour)
+                const matches: IterableIterator<RegExpMatchArray> = line.matchAll(/(\d+) (\w)/g); //
+
+                // @ts-ignore
+                for (const match of matches) {
+                    const [, num, col] = match; // ignore the 1st el and get the 2nd and 3rd
+                    bag[col] = Math.max(bag[col], Number(num)); // compare current record and num and set highest to new record
+                }
+
+                // Convert to array of nums and reduce.
+                // When you give reduce a callback, the 1st arg is the acc. The return of the cb then becomes the acc.
+                // So we can use this to multiply each value together
+                // acc*el=newAcc
+                // l1: 1*4=4
+                // l2: 4*2=8
+                // l3: 8*6=48
+                return Object.values(bag).reduce((product, value) => product * value, 1);
+            }
+
+            expect(calculateProduct("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")).toBe(48)
+
+        });
+
+
+    });
