@@ -139,6 +139,8 @@ describe('Day two tests', () => {
 
 
 
+
+
             function calculateProduct(line: string): number {
                 const bag: Record<string, number> = { r: 0, g: 0, b: 0 };
 
@@ -164,8 +166,14 @@ describe('Day two tests', () => {
                 return Object.values(bag).reduce((product, value) => product * value, 1);
             }
 
-            expect(calculateProduct("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")).toBe(48)
+            expect(calculateProduct("123 apple 456 banana 789 cherry")).toBe(48)
 
+
+            // TL;DR: this method does the following
+            // 1. create record/map
+            // 2. make regex array of all matches
+            // 3. use el2 and el3 to replace record if higher
+            // 4. reduce used to multiply each value by each other.
         });
 
 
