@@ -107,7 +107,7 @@ describe('Day two tests', () => {
         const games: Games = new Games(gamesArray)
 
 
-        expect(games.sumPlayableGames(true)).toBe(2286);
+        expect(games.sumPart2()).toBe(2286);
     });
 
     it('Solves the part 2 code!', () => {
@@ -118,7 +118,7 @@ describe('Day two tests', () => {
 
         const games: Games = new Games(gamesArray)
 
-        console.log(games.sumPlayableGames(true))
+        console.log(games.sumPart2())
     });
 
 });

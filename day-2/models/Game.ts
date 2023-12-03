@@ -23,8 +23,14 @@ export class Games {
                 }
             }
         }))
-
     }
+
+    sumPart2() {
+        return sumArray(this.gamesArray.map(game => {
+                return game.powerOfMinNeeded
+        }))
+    }
+
 
 
 }
@@ -53,13 +59,8 @@ export class Game {
         return match ? Number(match[0]) : 0; // if not null return the 1st digits found
     }
 
-    checkIfGameIsPlayable(): boolean {
-        const isPlayableCheck: number[] = ["red", "green", "blue"].map(colour => this.returnIfPlayable(colour, this.getHighestFromString(colour)))
-        const isPlayable = !isPlayableCheck.includes(0)
-        return isPlayable
-    }
 
-    getHighestFromString(colour: string, part2: boolean = false) {
+    getHighestFromString(colour: string) {
         const regex = new RegExp(`(\\d+)\\s${colour}`, "g") // matches: digit, space + colour. /g means global (searches the whole string)
         const colourValuesAsString: RegExpMatchArray = this.gameString.match(regex) // something like ["3 red", "3 red"]
 
@@ -70,6 +71,15 @@ export class Game {
 
 
     }
+
+
+    checkIfGameIsPlayable(): boolean {
+        const isPlayableCheck: number[] = ["red", "green", "blue"].map(colour => this.returnIfPlayable(colour, this.getHighestFromString(colour)))
+        const isPlayable = !isPlayableCheck.includes(0)
+        return isPlayable
+    }
+
+
 
     returnIfPlayable(colour: string, highest: number) {
         switch (colour) {
