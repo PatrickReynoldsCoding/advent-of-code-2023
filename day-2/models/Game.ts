@@ -1,40 +1,3 @@
-import {Dice} from './Dice';
-import {sumArray} from "../../utils/helperMethods";
-
-const regExFindAllDigits: RegExp = /\d+/; //find all sequence of digits
-
-export class Games {
-    gamesArray: Game[]
-
-    constructor(gamesArray: Game[]) {
-        this.gamesArray = gamesArray
-    }
-
-    sumPlayableGames(part2: boolean = false) {
-        return sumArray(this.gamesArray.map(game => {
-            if (part2 == true) {
-                return game.powerOfMinNeeded
-
-            } else {
-                if (game.isGamePlayable) {
-                    return game.id
-                } else {
-                    return 0
-                }
-            }
-        }))
-    }
-
-    sumPart2() {
-        return sumArray(this.gamesArray.map(game => {
-                return game.powerOfMinNeeded
-        }))
-    }
-
-
-
-}
-
 export class Game {
     gameString: string;
     id: number;
@@ -43,6 +6,7 @@ export class Game {
     green: number;
     blue: number;
     powerOfMinNeeded: number
+    regExFindAllDigits: RegExp = /\d+/;
 
     constructor(gameString: string) {
         this.gameString = gameString;
@@ -54,8 +18,9 @@ export class Game {
         this.powerOfMinNeeded = this.red * this.green * this.blue
     }
 
+
     getId(): number {
-        const match: RegExpMatchArray = this.gameString.match(regExFindAllDigits);
+        const match: RegExpMatchArray = this.gameString.match(this.regExFindAllDigits);
         return match ? Number(match[0]) : 0; // if not null return the 1st digits found
     }
 
@@ -64,10 +29,9 @@ export class Game {
         const regex = new RegExp(`(\\d+)\\s${colour}`, "g") // matches: digit, space + colour. /g means global (searches the whole string)
         const colourValuesAsString: RegExpMatchArray = this.gameString.match(regex) // something like ["3 red", "3 red"]
 
-        const colourValues: number[] = colourValuesAsString.map(value => Number(value.match(regExFindAllDigits)))
+        const colourValues: number[] = colourValuesAsString.map(value => Number(value.match(this.regExFindAllDigits)))
 
         return Math.max(...colourValues)
-
 
 
     }
@@ -78,7 +42,6 @@ export class Game {
         const isPlayable = !isPlayableCheck.includes(0)
         return isPlayable
     }
-
 
 
     returnIfPlayable(colour: string, highest: number) {

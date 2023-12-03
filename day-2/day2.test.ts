@@ -1,7 +1,8 @@
 import {stringToStringArray} from "../utils/helperMethods";
 
 const fs = require('fs');
-import {Game, Games} from "./models/Game";
+import {Game} from "./models/Game";
+import {Games} from "./models/Games";
 
 
 describe('Day two tests', () => {
@@ -79,14 +80,14 @@ describe('Day two tests', () => {
 
         // The power of a set of cubes is equal to the numbers of red, green, and blue cubes multiplied together.
 
-        // const game1 = new Game("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")
-        // const game2 = new Game("Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue")
+        const game1 = new Game("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")
+        const game2 = new Game("Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue")
         const game3 = new Game("Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red")
         const game4 = new Game("Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red")
         const game5 = new Game("Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green")
 
-        // expect(game1.powerOfMinNeeded).toBe(48);
-        // expect(game2.powerOfMinNeeded).toBe(12);
+        expect(game1.powerOfMinNeeded).toBe(48);
+        expect(game2.powerOfMinNeeded).toBe(12);
         expect(game3.powerOfMinNeeded).toBe(1560);
         expect(game4.powerOfMinNeeded).toBe(630);
         expect(game5.powerOfMinNeeded).toBe(36);
@@ -107,7 +108,7 @@ describe('Day two tests', () => {
         const games: Games = new Games(gamesArray)
 
 
-        expect(games.sumPart2()).toBe(2286);
+        expect(games.powerOfFewestDiceNeeded()).toBe(2286);
     });
 
     it('Solves the part 2 code!', () => {
@@ -118,7 +119,7 @@ describe('Day two tests', () => {
 
         const games: Games = new Games(gamesArray)
 
-        console.log(games.sumPart2())
+        console.log(games.powerOfFewestDiceNeeded())
     });
 
 });
