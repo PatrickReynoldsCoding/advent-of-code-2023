@@ -166,7 +166,7 @@ describe('Day two tests', () => {
                 return Object.values(bag).reduce((product, value) => product * value, 1);
             }
 
-            expect(calculateProduct("123 apple 456 banana 789 cherry")).toBe(48)
+            expect(calculateProduct("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green")).toBe(48)
 
 
             // TL;DR: this method does the following
