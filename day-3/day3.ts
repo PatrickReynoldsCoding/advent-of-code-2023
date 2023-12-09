@@ -22,7 +22,6 @@ export const findDigitAndAdjacentCharIndices = (stringToCheck: string): number[]
             indicesOfMatches.push(indices.filter(num => !isNaN(num))); // remove any NaN and push
         }
     }
-// test
     return indicesOfMatches;
 }
 
