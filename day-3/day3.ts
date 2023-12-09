@@ -22,24 +22,22 @@ export const findDigitAndAdjacentCharIndices = (stringToCheck: string): number[]
             indicesOfMatches.push(indices.filter(num => !isNaN(num))); // remove any NaN and push
         }
     }
-
+// test
     return indicesOfMatches;
 }
 
-export const findAdjacentMatches = (testString: string, indices: number[][]) => {
-
-
+export const checkForAdjacentSymbol = (currentCheck: { string: string; unchecked: number[]; id: number; matches: number[] }): { string: string; unchecked: number[]; id: number; matches: number[] } => {
 
 
 }
 
-// const checkParallelLines = (checkSegment: string[]): number[] | null => {
-//         // 1. for current line, get all numbers in line with their index positions
-//         // and put to map/record
-//         // 2. for each number, add to [] if previous line contains symbol in the
-//         // recorded index positions, as well as lowest index -1 and highest index +1
-//         // 3. if no match, repeat 2  with next line
-// }
+const checkParallelLines = (checkSegment: string[]): number[] | null => {
+        // 1. for current line, get all numbers in line with their index positions
+        // and put to map/record
+        // 2. for each number, add to [] if previous line contains symbol in the
+        // recorded index positions, as well as lowest index -1 and highest index +1
+        // 3. if no match, repeat 2  with next line
+}
 //
 //
 // export const checkSegmentForParts = (checkSegment: string[]): void => {

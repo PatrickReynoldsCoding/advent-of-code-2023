@@ -1,5 +1,5 @@
 import {stringToStringArray} from "../utils/helperMethods";
-import {findAdjacentMatches, findDigitAndAdjacentCharIndices} from "./day3";
+import {checkForAdjacentSymbol, findDigitAndAdjacentCharIndices} from "./day3";
 
 const fs = require('fs');
 
@@ -22,17 +22,60 @@ describe('Day two tests', () => {
     });
 
 
-    xit('takes string and indices, performs check and pushes matched numbers to array', () => {
+    xit('takes string and indices, performs check and returns match to array', () => {
 
 
-        const testString = "..#426...985..."
+        const s3 = "..#426...985..."
         const indices = [[2,3,4,5,6], [8,9,10,11,12]]
 
 
-        expect(findAdjacentMatches(testString, indices)).toBe([426])
+        expect(checkForAdjacentSymbol(s3, indices)).toBe({
+            stringNo: 3,
+            string: "..#426...985...",
+            matches: [426],
+            unchecked: [985]
+        }) // todo wip
 
 
     });
+
+    it('checkParallelLines looks at numbers that havent matched in its own string and checks parallel strings for symbols', () => {
+
+        // const s3: string = "..#426...985..."
+        // const s4: string = "10......203...."
+        // const s5: string = ".........#....."
+        // const indices = [[2,3,4,5,6], [8,9,10,11,12]]
+
+
+        const schematicArrayMock: string[] = [
+            "...............",
+            "..#426...#.....",
+            "..#426...985...", //checking 985 here
+            "10......203....",
+            ".........#....."
+        ]
+
+        const toCheck: { string: string; unchecked: number[]; id: number; matches: number[] } = {
+            id: 3,
+            string: "..#426...985...",
+            matches: [426],
+            unchecked: [985]
+        }
+
+        const expected: { string: string; unchecked: number[]; id: number; matches: number[] } = {
+            id: 3,
+            string: "..#426...985...",
+            matches: [426, 985],
+            unchecked: []
+        }
+
+
+
+        expect(checkForAdjacentSymbol(schematicArrayMock, toCheck).toBe(expected) // todo wip
+
+
+    });
+
 
 
     xit('turns whole string into desired matches', () => {
@@ -48,7 +91,7 @@ describe('Day two tests', () => {
 
     });
 
-    it('solves part 1!', () => {
+    xit('solves part 1!', () => {
 
         input = "467..114..\n" +
             "...*......\n" +
