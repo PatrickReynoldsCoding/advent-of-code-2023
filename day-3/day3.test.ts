@@ -1,5 +1,6 @@
 import {stringToStringArray} from "../utils/helperMethods";
-import {checkForAdjacentSymbol, findDigitAndAdjacentCharIndices} from "./day3";
+import {SchematicLine} from "./models/SchematicLine";
+import {findDigitAndAdjacentCharIndices} from "./day3";
 
 const fs = require('fs');
 
@@ -10,31 +11,31 @@ describe('Day two tests', () => {
     const schematicArray: string[] = stringToStringArray(input)
 
 
-
-
-
     it('returns all number in string and the adjacent chars', () => {
 
-        const testString = "..#426...985..."
+        const pre = "...........#..."
+        const current = "..#426...985..."
+        const indices = [[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]]
+        const next = "..............."
 
-        expect(findDigitAndAdjacentCharIndices(testString)).toStrictEqual([[2,3,4,5,6], [8,9,10,11,12]])
+        const sl: SchematicLine = new SchematicLine(current, 3, indices, pre, next)
+
+        expect(sl.findDigitAndAdjacentCharIndices()).toStrictEqual([[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]])
 
     });
 
 
-    xit('takes string and indices, performs check and returns match to array', () => {
+    it('when given the current string, indices and pre and next string this can determine the matches', () => {
+
+        const pre = "...........#..."
+        const current = "..#426...985..."
+        const indices = [[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]]
+        const next = "..............."
+
+        const sl: SchematicLine = new SchematicLine(current, 3, indices, pre, next)
 
 
-        const s3 = "..#426...985..."
-        const indices = [[2,3,4,5,6], [8,9,10,11,12]]
-
-
-        expect(checkForAdjacentSymbol(s3, indices)).toBe({
-            stringNo: 3,
-            string: "..#426...985...",
-            matches: [426],
-            unchecked: [985]
-        }) // todo wip
+        expect(sl.foundParts).toStrictEqual([426, 985])
 
 
     });
@@ -70,18 +71,13 @@ describe('Day two tests', () => {
         }
 
 
-
-        expect(checkForAdjacentSymbol(schematicArrayMock, toCheck).toBe(expected) // todo wip
+        // expect(checkForAdjacentSymbol(schematicArrayMock, toCheck).toBe(expected) // todo wip
 
 
     });
 
 
-
     xit('turns whole string into desired matches', () => {
-
-
-
 
 
         expect("..486...186*925.....*....483.883.1....286......").toBe([186, 925])

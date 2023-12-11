@@ -1,5 +1,8 @@
 // starting at 18:23
+// starting 09:03
 
+
+import {SchematicLine} from "./models/SchematicLine";
 
 let numbersToAdd: number[] = []
 
@@ -25,18 +28,23 @@ export const findDigitAndAdjacentCharIndices = (stringToCheck: string): number[]
     return indicesOfMatches;
 }
 
-export const checkForAdjacentSymbol = (currentCheck: { string: string; unchecked: number[]; id: number; matches: number[] }): { string: string; unchecked: number[]; id: number; matches: number[] } => {
+// export const checkForAdjacentSymbol = (currentCheck: SchematicLine): SchematicLine => {
+//     return {
+//         id: 3,
+//         string: "..#426...985...",
+//         matches: [426],
+//         unchecked: [985]
+//     }
+//
+// }
 
-
-}
-
-const checkParallelLines = (checkSegment: string[]): number[] | null => {
-        // 1. for current line, get all numbers in line with their index positions
-        // and put to map/record
-        // 2. for each number, add to [] if previous line contains symbol in the
-        // recorded index positions, as well as lowest index -1 and highest index +1
-        // 3. if no match, repeat 2  with next line
-}
+// const checkParallelLines = (checkSegment: string[]): number[] | null => {
+//         // 1. for current line, get all numbers in line with their index positions
+//         // and put to map/record
+//         // 2. for each number, add to [] if previous line contains symbol in the
+//         // recorded index positions, as well as lowest index -1 and highest index +1
+//         // 3. if no match, repeat 2  with next line
+// }
 //
 //
 // export const checkSegmentForParts = (checkSegment: string[]): void => {
