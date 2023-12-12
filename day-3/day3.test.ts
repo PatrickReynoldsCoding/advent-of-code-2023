@@ -15,30 +15,46 @@ describe('Day two tests', () => {
 
         const pre = "...........#..."
         const current = "..#426...985..."
-        const indices = [[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]]
         const next = "..............."
 
-        const sl: SchematicLine = new SchematicLine(current, 3, indices, pre, next)
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
 
-        expect(sl.findDigitAndAdjacentCharIndices()).toStrictEqual([[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]])
+        expect(sl.potentialMatchIndices).toStrictEqual([[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]])
 
     });
 
 
-    it('when given the current string, indices and pre and next string this can determine the matches', () => {
+    it('checks current string for matches', () => {
 
         const pre = "...........#..."
         const current = "..#426...985..."
-        const indices = [[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]]
         const next = "..............."
 
-        const sl: SchematicLine = new SchematicLine(current, 3, indices, pre, next)
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+        expect(sl.findPartsAdjacent()).toStrictEqual([426])
 
 
+    });
+
+
+    xit('when given the current string, indices and pre and next string this can determine the matches', () => {
+
+        const pre = "...........#..."
+        const current = "..#426...985..."
+        const next = "..............."
+
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+// todo add a search for checking matches inline, check previous AND next string are checked
         expect(sl.foundParts).toStrictEqual([426, 985])
 
 
     });
+
+
+
+
 
     it('checkParallelLines looks at numbers that havent matched in its own string and checks parallel strings for symbols', () => {
 

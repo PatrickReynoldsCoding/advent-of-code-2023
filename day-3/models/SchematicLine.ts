@@ -1,24 +1,25 @@
 export class SchematicLine {
     string: string;
     id: number;
-    indices: number[][];
+    potentialMatchIndices: number[][];
     previousString: string;
     nextString: string;
     foundParts: number[];
     unchecked: number[];
+    symbols: string[] = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ";", ":", "'", ",", "<", ">", "/", "?", "`", "~"]
 
 
-    constructor(string: string, id: number, indices: number[][], previousString: string, nextString: string) {
+    constructor(string: string, id: number, previousString: string, nextString: string) {
         this.string = string;
         this.id = id;
-        this.indices = indices;
+        this.potentialMatchIndices = this.findPotentialParts();
         this.previousString = previousString;
         this.nextString = nextString;
-        this.foundParts = this.findParts();
+        this.foundParts = this.findPartsParallel();
     }
 
 
-    findDigitAndAdjacentCharIndices(): number[][] {
+    findPotentialParts(): number[][] {
         const indicesOfMatches: number[][] = [];
 
         for (let i = 0; i < this.string.length; i++) {
@@ -37,8 +38,44 @@ export class SchematicLine {
         return indicesOfMatches;
     }
 
-    findParts() {
-        return [426, 985]
+    isCharASymbol(el: string): boolean {
+        return this.symbols.includes(el)
+    }
+
+
+    convertIndicesToPart(partIndices: number[]): number {
+        const part = partIndices.map(index => this.string[index]).slice(1, -1).join("")
+        return Number(part)
+    }
+
+    findPartsAdjacent(): number[] {
+        let partsToPush: number[] = []
+        this.potentialMatchIndices.every((partToCheck: number[]) => {// every is like forEach but breaks when false is returned
+            const firstChar = this.string[partToCheck.at(0)]
+            const lastChar = this.string[partToCheck.at(-1)]
+
+            if (this.isCharASymbol(firstChar) || this.isCharASymbol(lastChar)) {
+                partsToPush.push(this.convertIndicesToPart(partToCheck))
+            }
+        })
+        return partsToPush
+    }
+
+    findPartsParallel(): number[] {
+        let partsToPush: number[] = []
+
+        this.potentialMatchIndices.every((partToCheck: number[]) => { // every is like forEach but breaks when false is returned
+            partToCheck.every(index => {
+                if (this.isCharASymbol(this.previousString[index]) || this.isCharASymbol(this.nextString[index])) {
+                    partsToPush.push(this.convertIndicesToPart(partToCheck));
+                    return false;
+                }
+                return true;
+            });
+        });
+
+        return partsToPush
+
     }
 
 
