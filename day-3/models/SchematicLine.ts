@@ -50,9 +50,11 @@ export class SchematicLine {
 
     findPartsAdjacent(): number[] {
         let partsToPush: number[] = []
-        this.potentialMatchIndices.every((partToCheck: number[]) => {// every is like forEach but breaks when false is returned
-            const firstChar = this.string[partToCheck.at(0)]
-            const lastChar = this.string[partToCheck.at(-1)]
+        this.potentialMatchIndices.forEach((partToCheck: number[]) => {// every is like forEach but breaks when false is returned
+            
+            
+            const firstChar = this.string[partToCheck[0]]
+            const lastChar = this.string[partToCheck[partToCheck.length + 1]]
 
             if (this.isCharASymbol(firstChar) || this.isCharASymbol(lastChar)) {
                 partsToPush.push(this.convertIndicesToPart(partToCheck))

@@ -38,6 +38,33 @@ describe('Day two tests', () => {
     });
 
 
+    it('checks current string for matches 2', () => {
+
+        const pre = ""
+        const current = "..*456..976"
+        const next = ""
+
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+        expect(sl.findPartsAdjacent()).toStrictEqual([456])
+
+
+    });
+
+
+    it('checks current string for matches 3', () => {
+
+        const pre = ""
+        const current = "..*456..&976"
+        const next = ""
+
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+        expect(sl.findPartsAdjacent()).toStrictEqual([456, 976])
+
+
+    });
+
     xit('when given the current string, indices and pre and next string this can determine the matches', () => {
 
         const pre = "...........#..."
