@@ -1,6 +1,5 @@
 import {stringToStringArray} from "../utils/helperMethods";
 import {SchematicLine} from "./models/SchematicLine";
-import {findDigitAndAdjacentCharIndices} from "./day3";
 
 const fs = require('fs');
 
@@ -38,7 +37,7 @@ describe('Day two tests', () => {
     });
 
 
-    xit('when given the current string, indices and pre and next string this can determine the matches', () => {
+    it('when given the current string, indices and pre and next string this can determine the matches', () => {
 
         const pre = "...........#..."
         const current = "..#426...985..."
@@ -46,7 +45,6 @@ describe('Day two tests', () => {
 
         const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
 
-// todo add a search for checking matches inline, check previous AND next string are checked
         expect(sl.foundParts).toStrictEqual([426, 985])
 
 

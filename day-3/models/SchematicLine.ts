@@ -15,7 +15,7 @@ export class SchematicLine {
         this.potentialMatchIndices = this.findPotentialParts();
         this.previousString = previousString;
         this.nextString = nextString;
-        this.foundParts = this.findPartsParallel();
+        this.foundParts = this.findParts();
     }
 
 
@@ -64,19 +64,23 @@ export class SchematicLine {
     findPartsParallel(): number[] {
         let partsToPush: number[] = []
 
-        this.potentialMatchIndices.every((partToCheck: number[]) => { // every is like forEach but breaks when false is returned
+        this.potentialMatchIndices.forEach((partToCheck: number[]) => { // every is like forEach but breaks when false is returned
             partToCheck.every(index => {
                 if (this.isCharASymbol(this.previousString[index]) || this.isCharASymbol(this.nextString[index])) {
                     partsToPush.push(this.convertIndicesToPart(partToCheck));
-                    return false;
+                    return false
+                } else {
+                    return true
                 }
-                return true;
             });
         });
 
         return partsToPush
-
     }
 
+    findParts() {
+       return this.findPartsAdjacent().concat(this.findPartsParallel())
+
+    }
 
 }
