@@ -50,6 +50,19 @@ describe('Day two tests', () => {
 
     });
 
+    it('when given the current string, indices and pre and next string this can determine the matches', () => {
+
+        const pre = "...........#..."
+        const current = "..#426...985..."
+        const next = "..............."
+
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+        expect(sl.foundParts).toStrictEqual([426, 985])
+
+
+    });
+
 
 
 
