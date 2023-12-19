@@ -4,7 +4,7 @@ import {SchematicLine} from "./models/SchematicLine";
 const fs = require('fs');
 
 
-describe('Day two tests', () => {
+describe('Day three tests', () => {
 
     let input = fs.readFileSync('day-4/input.txt', 'utf8');
     const schematicArray: string[] = stringToStringArray(input)
@@ -46,25 +46,33 @@ describe('Day two tests', () => {
         const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
 
         expect(sl.foundParts).toStrictEqual([426, 985])
-
-
     });
 
-    it('when given the current string, indices and pre and next string this can determine the matches', () => {
+    it('checks current string for matches 2', () => {
 
-        const pre = "...........#..."
-        const current = "..#426...985..."
-        const next = "..............."
+        const pre = ""
+        const current = "..*456..976"
+        const next = ""
 
         const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
 
-        expect(sl.foundParts).toStrictEqual([426, 985])
-
+        expect(sl.findPartsAdjacent()).toStrictEqual([456])
 
     });
 
 
+    it('checks current string for matches 3', () => {
 
+        const pre = ""
+        const current = "..*456..&976"
+        const next = ""
+
+        const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
+
+        expect(sl.findPartsAdjacent()).toStrictEqual([456, 976])
+
+
+    });
 
 
     it('checkParallelLines looks at numbers that havent matched in its own string and checks parallel strings for symbols', () => {
