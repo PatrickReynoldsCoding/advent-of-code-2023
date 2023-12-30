@@ -6,7 +6,7 @@ export class SchematicLine {
     nextString: string;
     foundParts: number[];
     unchecked: number[];
-    symbols: string[] = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ";", ":", "'", ",", "<", ">", "/", "?", "`", "~"]
+    symbols: string[] = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", ";", ":", "'", ",", "<", ">", "/", "?", "`", "~", "£"]
 
 
     constructor(string: string, id: number, previousString: string, nextString: string) {
@@ -19,18 +19,31 @@ export class SchematicLine {
     }
 
 
+    isCharASymbol(el: string): boolean {
+        return this.symbols.includes(el)
+    }
+
+    isCharADigit(el: string): boolean {
+       return /\d/.test(el)
+    }
+
     findPotentialParts(): number[][] {
         const indicesOfMatches: number[][] = [];
+        const stringLength = this.string.length;
+  
 
-        for (let i = 0; i < this.string.length; i++) {
-            if (/\d/.test(this.string[i])) { //is current char a digit?
+        for (let i: number = 0; i < stringLength; i++) {
+            if (this.isCharADigit(this.string[i])) {
                 let indices: number[] = [i];
-                while (/\d/.test(this.string[i + 1])) { // pushes chars until we don't match a digit
+                while (this.isCharADigit(this.string[i + 1])) { // pushes chars until we don't match a digit
                     indices.push(++i);
                 }
 
-                indices.unshift(indices[0] - 1) // get char before
-                indices.push(indices[indices.length - 1] + 1) // get char after
+                const potentialMatchLength: number = indices.length
+                const prev: number = indices[0] - 1
+                const next: number = indices[potentialMatchLength - 1] + 1
+                if (prev >= 0) indices.unshift(prev) // get char before
+                if (next <= stringLength) indices.push(next) // get char after
 
                 indicesOfMatches.push(indices.filter(num => !isNaN(num))); // remove any NaN and push
             }
@@ -38,14 +51,12 @@ export class SchematicLine {
         return indicesOfMatches;
     }
 
-    isCharASymbol(el: string): boolean {
-        return this.symbols.includes(el)
-    }
+
 
 
     convertIndicesToPart(partIndices: number[]): number {
-        const part = partIndices.map(index => this.string[index]).slice(1, -1).join("")
-        return Number(part)
+        const part: string = partIndices.map(index => this.string[index]).join("")
+        return Number(part.replace(/[^0-9]/g, ''));
     }
 
     findPartsAdjacent(): number[] {
@@ -53,8 +64,8 @@ export class SchematicLine {
         this.potentialMatchIndices.forEach((partToCheck: number[]) => {// every is like forEach but breaks when false is returned
             
             
-            const firstChar = this.string[partToCheck[0]]
-            const lastChar = this.string[partToCheck[partToCheck.length + 1]]
+            const firstChar: string = this.string[partToCheck[0]]
+            const lastChar: string = this.string[partToCheck[partToCheck.length + 1]]
 
             if (this.isCharASymbol(firstChar) || this.isCharASymbol(lastChar)) {
                 partsToPush.push(this.convertIndicesToPart(partToCheck))

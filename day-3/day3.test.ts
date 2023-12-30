@@ -10,20 +10,20 @@ describe('Day three tests', () => {
     const schematicArray: string[] = stringToStringArray(input)
 
 
-    it('returns all number in string and the adjacent chars', () => {
+    it('returns indices of potential matches', () => {
 
-        const pre = "...........#..."
-        const current = "..#426...985..."
-        const next = "..............."
+        const pre =     "...........#..."
+        const current = "426~.....985..."
+        const next =    "..............."
 
         const sl: SchematicLine = new SchematicLine(current, 3, pre, next)
 
-        expect(sl.potentialMatchIndices).toStrictEqual([[2, 3, 4, 5, 6], [8, 9, 10, 11, 12]])
+        expect(sl.potentialMatchIndices).toStrictEqual([[0, 1, 2, 3], [8, 9, 10, 11, 12]])
 
     });
 
 
-    it('checks current string for matches', () => {
+    it('checks current string for matches and returns number', () => {
 
         const pre = "...........#..."
         const current = "..#426...985..."
@@ -37,7 +37,7 @@ describe('Day three tests', () => {
     });
 
 
-    it('when given the current string, indices and pre and next string this can determine the matches', () => {
+    it('finds adjacent parts 1', () => {
 
         const pre = "...........#..."
         const current = "..#426...985..."
@@ -48,7 +48,7 @@ describe('Day three tests', () => {
         expect(sl.foundParts).toStrictEqual([426, 985])
     });
 
-    it('checks current string for matches 2', () => {
+    it('finds adjacent parts 2', () => {
 
         const pre = ""
         const current = "..*456..976"
@@ -61,7 +61,7 @@ describe('Day three tests', () => {
     });
 
 
-    it('checks current string for matches 3', () => {
+    it('finds adjacent parts 3', () => {
 
         const pre = ""
         const current = "..*456..&976"
@@ -75,41 +75,84 @@ describe('Day three tests', () => {
     });
 
 
-    it('checkParallelLines looks at numbers that havent matched in its own string and checks parallel strings for symbols', () => {
+    it('Find Parallel parts 1', () => {
+    
+        const pre =     "..#426...#....."
+        const current = "..#426...985..."
+        const next =    "10......203...."
 
-        // const s3: string = "..#426...985..."
-        // const s4: string = "10......203...."
-        // const s5: string = ".........#....."
-        // const indices = [[2,3,4,5,6], [8,9,10,11,12]]
+        const sl: SchematicLine = new SchematicLine(current, 1, pre, next)
 
-
-        const schematicArrayMock: string[] = [
-            "...............",
-            "..#426...#.....",
-            "..#426...985...", //checking 985 here
-            "10......203....",
-            ".........#....."
-        ]
-
-        const toCheck: { string: string; unchecked: number[]; id: number; matches: number[] } = {
-            id: 3,
-            string: "..#426...985...",
-            matches: [426],
-            unchecked: [985]
-        }
-
-        const expected: { string: string; unchecked: number[]; id: number; matches: number[] } = {
-            id: 3,
-            string: "..#426...985...",
-            matches: [426, 985],
-            unchecked: []
-        }
+        expect(sl.findPartsParallel()).toStrictEqual([426, 985])
 
 
-        // expect(checkForAdjacentSymbol(schematicArrayMock, toCheck).toBe(expected) // todo wip
+    })
+
+    it('Find Parallel parts 2', () => {
+    
+        const pre =     ".............."
+        const current = "...426...985..."
+        const next =    "..............."
+
+        const sl: SchematicLine = new SchematicLine(current, 1, pre, next)
+
+        expect(sl.findPartsParallel()).toStrictEqual([])
 
 
-    });
+    })
+
+
+    it('Find Parallel parts 3', () => {
+    
+        const pre =     "£..........(..."
+        const current = "111..453....534"
+        const next =    ".....!........."
+
+        const sl: SchematicLine = new SchematicLine(current, 1, pre, next)
+
+        const result = sl.findPartsParallel()
+
+        const expected = [111, 453, 534]
+
+        expect(result).toStrictEqual(expected)
+
+
+    })
+
+
+    //     // const s3: string = "..#426...985..."
+    //     // const s4: string = "10......203...."
+    //     // const s5: string = ".........#....."
+    //     // const indices = [[2,3,4,5,6], [8,9,10,11,12]]
+
+
+    //     const schematicArrayMock: string[] = [
+    //         "...............",
+    //         "..#426...#.....",
+    //         "..#426...985...", //checking 985 here
+    //         "10......203....",
+    //         ".........#....."
+    //     ]
+
+    //     const toCheck: { string: string; unchecked: number[]; id: number; matches: number[] } = {
+    //         id: 3,
+    //         string: "..#426...985...",
+    //         matches: [426],
+    //         unchecked: [985]
+    //     }
+
+    //     const expected: { string: string; unchecked: number[]; id: number; matches: number[] } = {
+    //         id: 3,
+    //         string: "..#426...985...",
+    //         matches: [426, 985],
+    //         unchecked: []
+    //     }
+
+
+    //     expect(checkForAdjacentSymbol(schematicArrayMock, toCheck)).toBe(expected) // todo wip
+
+
+    // });
 
 
     xit('turns whole string into desired matches', () => {
